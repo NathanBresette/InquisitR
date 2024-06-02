@@ -1,13 +1,9 @@
 
-#' Distribution Plots
-#'
-#' This function creates bar plots for character or factor variables and histograms for numeric variables in the given data frame.
-#' @param data A data frame containing the data to be plotted.
-#' @param plot_bars Logical, whether to create bar plots for categorical variables. Default is TRUE.
-#' @param plot_histograms Logical, whether to create histograms for numeric variables. Default is TRUE.
-#' @return A list containing ggplot objects for bar plots and histograms.
-#' @export
-distribution <- function(data, plot_bars = TRUE, plot_histograms = TRUE) {
+utils::globalVariables(c("Category", "Frequency"))
+
+library(ggplot2)
+
+distributionR <- function(data, plot_bars = TRUE, plot_histograms = TRUE) {
   # Check if input is a data frame
   if (!is.data.frame(data)) {
     stop("Input must be a data frame.")
@@ -36,7 +32,8 @@ distribution <- function(data, plot_bars = TRUE, plot_histograms = TRUE) {
       plot <- ggplot(plot_data, aes(x = Category, y = Frequency)) +
         geom_bar(stat = "identity", fill = "skyblue", color = "black") +
         labs(title = paste("Bar Plot of", col), x = col, y = "Frequency") +
-        theme(axis.text.x = element_text(angle = 45, hjust = 1))
+        theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+        theme_minimal()
       plots[[paste("barplot", col, sep = "_")]] <- plot
     }
   }
@@ -47,14 +44,11 @@ distribution <- function(data, plot_bars = TRUE, plot_histograms = TRUE) {
     for (var in numeric_vars) {
       plot <- ggplot(data, aes(x = .data[[var]])) +
         geom_histogram(bins = 10, fill = "skyblue", color = "black") +
-        labs(title = paste("Histogram of", var), x = var, y = "Frequency")
+        labs(title = paste("Histogram of", var), x = var, y = "Frequency") +
+        theme_minimal()
       plots[[paste("histogram", var, sep = "_")]] <- plot
     }
   }
 
   return(plots)
 }
-
-
-
-

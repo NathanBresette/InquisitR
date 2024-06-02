@@ -1,1 +1,7 @@
-exportPattern("^[[:alpha:]]+")
+import(GGally)
+import(dplyr)
+import(ggplot2)
+import(stats)
+export(distributionR)
+export(boxplotR)
+export(correlationR)
