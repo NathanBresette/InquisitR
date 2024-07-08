@@ -50,6 +50,3 @@ correlationR <- function(df) {
     upper = list(continuous = wrap(upperFn))
   ) + theme_minimal()
 }
-
-# Test the function with the mtcars dataset
-correlationR(iris)

@@ -16,7 +16,7 @@ This function loops through each combination of factor and numeric variables in 
 \examples{
 # Example usage
 library(ggplot2)
-data(iros)
+data(iris)
 boxplots <- boxplotR(iris)
 print(boxplots)
 }
