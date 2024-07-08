@@ -8,7 +8,7 @@ distributionR: Easily visualize distributions of both numeric and categorical va
 
 convertR: Coming soon! This function will automate data type conversions based on the characteristics of your data.
 
-Github link to use my package 
+Github link to use my package https://github.com/NathanBresette/InquisitR
 
 Or in R:
 library(devtools)
