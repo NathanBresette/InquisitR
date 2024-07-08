@@ -6,7 +6,7 @@ correlationR(df)
 }
 \arguments{
   \item{df}{
-    The data frame containing the variables to be plotted.
+    The data frame containing the variables to be plotted
   }
 }
 \description{
