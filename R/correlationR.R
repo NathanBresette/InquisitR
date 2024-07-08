@@ -20,13 +20,7 @@ upperFn <- function(data, mapping, ...) {
     theme_minimal()
 }
 
-lowerFn <- function(data, mapping, emap=NULL, method = "lm", ...) {
-  if (is.null(emap)) {
-    mapping <- ggplot2:::new_aes(mapping)
-  } else {
-    mapping <- ggplot2:::new_aes(c(mapping, emap))
-  }
-
+lowerFn <- function(data, mapping, method = "lm", ...) {
   ggplot(data = data, mapping = mapping) +
     geom_point(colour = "skyblue3") +
     geom_smooth(method = method, color = "black", ...) +
@@ -51,8 +45,11 @@ correlationR <- function(df) {
 
   ggpairs(
     df[, numeric_cols],
-    lower = list(continuous = wrap(lowerFn, method = "lm", emap=aes(color=Species))),
+    lower = list(continuous = wrap(lowerFn, method = "lm")),
     diag = list(continuous = wrap(diagFn)),
     upper = list(continuous = wrap(upperFn))
   ) + theme_minimal()
 }
+
+# Test the function with the mtcars dataset
+correlationR(mtcars)
