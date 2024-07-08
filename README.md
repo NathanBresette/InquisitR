@@ -13,3 +13,4 @@ Github link to use my package https://github.com/NathanBresette/InquisitR
 Or in R:
 library(devtools)
 install_github("NathanBresette/InquisitR")
+contact: nathanbresette04@gmail.com
