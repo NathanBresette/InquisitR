@@ -1,0 +1,86 @@
+```{r}
+# Create a dirty data frame with mixed data types
+dirty_df <- data.frame(
+  ID = 1:5,
+  Name = c("Alice", "Bob", "Charlie", "Alice", "Eve"),
+  Age = c(25, "30", 35, "28", "unknown"),
+  City = c("New York", "Boston", "Chicago", "New York", "Chicago"),
+  Income = c("$50,000", "$60,000", "70,000", "$55,000", "60,000"),
+  Married = c(TRUE, FALSE, TRUE, TRUE, FALSE),
+  Strings_as_Numeric = c("123", "456", "789", "234", "567")
+)
+
+# Add a column with limited unique characters
+dirty_df$Education <- c("High School", "Bachelor's", "High School", "Master's", "Bachelor's")
+
+str(dirty_df)
+```
+
+```{r}
+# Function to convert data types in a data frame
+convert_data_types <- function(df) {
+  
+  # Iterate through each column
+  for (col in names(df)) {
+    
+    # Check if all values can be coerced to numeric
+    if (all(!is.na(as.numeric(df[[col]])))) {
+      df[[col]] <- as.numeric(df[[col]])  # Convert to numeric
+    } 
+    
+    # Check if all values are characters (strings)
+    else if (all(is.character(df[[col]]))) {
+      # Count unique values
+      unique_values <- unique(df[[col]])
+      num_unique <- length(unique_values)
+      
+      # Convert to logical if only unique values are '0' and '1' or 'TRUE' and 'FALSE'
+      if (all(unique_values %in% c("0", "1", "TRUE", "FALSE"))) {
+        df[[col]] <- as.logical(df[[col]])
+      } else {
+        df[[col]] <- as.character(df[[col]])  # Keep as character
+      }
+    }
+    
+    # Check if all values are factors
+    else if (all(is.factor(df[[col]]))) {
+      df[[col]] <- as.factor(df[[col]])  # Ensure factor type
+    }
+    
+    # Check if all values are logical (TRUE/FALSE)
+    else if (all(is.logical(df[[col]]))) {
+      df[[col]] <- as.logical(df[[col]])  # Ensure logical type
+    }
+    
+    # If none of the above, keep the original type
+    else {
+      warning(paste("Column", col, "contains mixed data types. Keeping original type."))
+    }
+  }
+  
+  return(df)
+}
+
+# Example usage with a data frame (e.g., dirty data frame with mixed types)
+dirty_df <- data.frame(
+  ID = 1:5,
+  Name = c("Alice", "Bob", "Charlie", "Alice", "Eve"),
+  Age = c(25, "30", 35, "28", "unknown"),
+  City = c("New York", "Boston", "Chicago", "New York", "Chicago"),
+  Income = c("$50,000", "$60,000", "70,000", "$55,000", "60,000"),
+  Married = c(TRUE, FALSE, TRUE, TRUE, FALSE),
+  Strings_as_Numeric = c("123", "456", "789", "234", "567"),
+  Logical_Column = c("TRUE", "FALSE", "TRUE", "FALSE", "TRUE")
+)
+
+# Print the dirty data frame
+print(dirty_df)
+
+# Function to convert data types
+clean_df <- convert_data_types(dirty_df)
+
+# Print the cleaned data frame
+print(clean_df)
+
+```
+
