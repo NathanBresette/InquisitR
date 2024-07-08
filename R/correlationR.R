@@ -52,4 +52,4 @@ correlationR <- function(df) {
 }
 
 # Test the function with the mtcars dataset
-correlationR(mtcars)
+correlationR(iris)
